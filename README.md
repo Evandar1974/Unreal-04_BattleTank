@@ -17,3 +17,6 @@ Mark Carroll
 * BT01 Intro, Notes & Assets
 * BT02 Game Design Document (GDD)
 * BT03 Setting Up a GitHub "Repo"
+* BT04 Creating Our First Landscape
+* BT05 Landscape Setup And Scaling
+* BT06 Landscaping Process.cmproj
