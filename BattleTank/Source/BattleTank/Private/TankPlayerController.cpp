@@ -10,7 +10,7 @@ void ATankPlayerController::BeginPlay()
 	if (!GetControledTank())
 	{
 		UE_LOG(LogTemp, Warning, TEXT("No Tank Controlled"));
-		
+
 	}
 	else
 	{
@@ -19,8 +19,24 @@ void ATankPlayerController::BeginPlay()
 	}
 }
 
+void ATankPlayerController::Tick(float DeltaTime )
+{
+	Super::Tick( DeltaTime );
+	// Aim Towards Crosshair
+}
+
+
+
 ATank* ATankPlayerController::GetControledTank() const
 {
 	return Cast<ATank>(GetPawn());
 }
 
+void ATankPlayerController::AimTowardsCrosshair()
+{
+	if (!GetControledTank()) { return; }
+
+	// get world location thru crosshair
+	// if it hits something
+		//tell tank to aim towards point
+}
