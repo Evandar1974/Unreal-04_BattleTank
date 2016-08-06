@@ -33,7 +33,7 @@ void ATank::SetupPlayerInputComponent(class UInputComponent* InputComponent)
 	Super::SetupPlayerInputComponent(InputComponent);
 
 }
-void ATank::SetBarrelReference(UStaticMeshComponent* BarrelToSet)
+void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
 	TankAimingComponent->SetBarrelReference(BarrelToSet);
 }
