@@ -2,10 +2,12 @@
 
 #pragma once
 
-#include "Tank.h"
+
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h"
 
+
+class ATank;
 /**
  * 
  */
@@ -15,7 +17,7 @@ class BATTLETANK_API ATankPlayerController : public APlayerController
 	GENERATED_BODY()
 	
 private:
-	ATank* GetControledTank() const;
+	ATank* GetControledTank();
 
 	virtual void BeginPlay() override;
 
@@ -30,7 +32,7 @@ private:
 	UPROPERTY(EditAnywhere)
 		float CrossHairYLocation = 0.33333;
 	UPROPERTY(EditAnywhere)
-		float LineTraceRange = 1000000.0;
+		float LineTraceRange = 100000.0;
 
 	bool GetLookDirection(FVector2D ScreenLocation, FVector& LookDirection) const;
 

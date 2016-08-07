@@ -1,30 +1,22 @@
 // copyright MCo 2016
 
 #include "BattleTank.h"
+#include "Tank.h"
 #include "TankAIController.h"
 
 
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
-	if (!GetControledTank())
+	
+	auto PlayerTank = GetPlayerTank();
+	if (!PlayerTank)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("No Tank Controlled"));
-
+		UE_LOG(LogTemp, Warning, TEXT("AI Controller cnat find player tank"));
 	}
 	else
 	{
-		if (!GetPlayerTank())
-		{
-			
-			UE_LOG(LogTemp, Warning, TEXT("AI Tank Controlled is %s"), *GetControledTank()->GetName());
-			UE_LOG(LogTemp, Warning, TEXT("No Player Tank Present!"));
-		}
-		else
-		{
-			UE_LOG(LogTemp, Warning, TEXT("AI Tank Controlled is %s"), *GetControledTank()->GetName());
-			UE_LOG(LogTemp, Warning, TEXT("%s is targeting %s"), *GetControledTank()->GetName(), *GetPlayerTank()->GetName());
-		}
+		UE_LOG(LogTemp, Warning, TEXT("AI Controller found player: %s"), *PlayerTank->GetName());
 	}
 
 	

@@ -2,6 +2,7 @@
 
 #include "BattleTank.h"
 #include "Tank.h"
+#include "TankAimingComponent.h"
 
 
 // Sets default values
@@ -29,6 +30,16 @@ void ATank::SetupPlayerInputComponent(class UInputComponent* InputComponent)
 void ATank::SetBarrelReference(UTankBarrel* BarrelToSet)
 {
 	TankAimingComponent->SetBarrelReference(BarrelToSet);
+}
+
+void ATank::SetTurretReference(UTankTurret* TurretToSet)
+{
+	TankAimingComponent->SetTurretReference(TurretToSet);
+}
+
+void ATank::Fire()
+{
+	UE_LOG (LogTemp, Warning, TEXT("FIRE!!"));
 }
 
 void ATank::AimAt(FVector HitLocation)
