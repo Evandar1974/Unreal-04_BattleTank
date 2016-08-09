@@ -43,7 +43,6 @@ void ATank::SetTurretReference(UTankTurret* TurretToSet)
 void ATank::Fire()
 {
 	if (!Barrel) { return; }
-
 	//spawn a projectile at the socket location
 	auto Projectile = GetWorld()->SpawnActor<AProjectile>(
 		ProjectileBlueprint,

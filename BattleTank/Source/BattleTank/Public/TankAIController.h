@@ -22,11 +22,7 @@ private:
 
 	// Called every frame
 	virtual void Tick(float DeltaSeconds) override;
-
 	void AimTowardsPlayer();
-
-	ATank* GetControledTank() const;
-	ATank* GetPlayerTank() const;
 	void BeginPlay() override;
 
 
