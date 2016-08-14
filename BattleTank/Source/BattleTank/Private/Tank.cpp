@@ -3,8 +3,9 @@
 #include "BattleTank.h"
 #include "TankBarrel.h"
 #include "Projectile.h"
-#include "Tank.h"
 #include "TankAimingComponent.h"
+#include "TankMovementComponent.h"
+#include "Tank.h"
 
 
 // Sets default values
@@ -14,13 +15,13 @@ ATank::ATank()
 	PrimaryActorTick.bCanEverTick = false;
 	// no need to protect pointers as added at construction
 	TankAimingComponent = CreateDefaultSubobject<UTankAimingComponent>(FName("Aiming Componenet"));
+	TankMovementComponent = CreateDefaultSubobject<UTankMovementComponent>(FName("Movement Component"));
 }
 
 // Called when the game starts or when spawned
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called to bind functionality to input
