@@ -47,7 +47,8 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = Setup)
 		TSubclassOf<AProjectile> ProjectileBlueprint;
-	// local barrel refernece
+	// local barrel references
 	UTankBarrel* Barrel = nullptr;
-
+	float ReloadTimeInSeconds = 3;
+	double LastFireTime = 0;
 };
