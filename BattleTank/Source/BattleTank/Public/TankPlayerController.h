@@ -15,10 +15,11 @@ UCLASS()
 class BATTLETANK_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-	
-private:
-	ATank* GetControledTank();
+protected:
+	UFUNCTION(BlueprintCallable, Category = "Setup")
+		ATank* GetControledTank() const;
 
+private:
 	virtual void BeginPlay() override;
 
 	virtual void Tick(float DeltaSeconds) override;
