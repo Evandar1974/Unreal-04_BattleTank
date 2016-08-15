@@ -18,8 +18,7 @@ void ATankAIController::Tick(float DeltaTime)
 	auto ControlledTank = (Cast<ATank>(GetPawn()));
 	if (PlayerTank)
 	{
-		//TODO move towards player
-		//aim towards player
+		MoveToActor(PlayerTank, AcceptanceRadius );//TODO check radius is in blueprint
 		ControlledTank->AimAt(PlayerTank->GetActorLocation());
 
 		ControlledTank->Fire(); // TODO dont fire every frame
