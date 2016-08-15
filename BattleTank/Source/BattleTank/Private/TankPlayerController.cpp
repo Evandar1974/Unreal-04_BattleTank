@@ -9,7 +9,8 @@ void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 	TankAimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
-	
+	if (!ensure(TankAimingComponent)) { return; }
+	FoundAimingComponent(TankAimingComponent);
 }
 
 void ATankPlayerController::Tick(float DeltaTime )
