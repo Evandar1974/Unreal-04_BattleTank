@@ -7,7 +7,7 @@
 
 void UTankMovementComponent::Initialise(UTankTrack* LeftTrackToSet, UTankTrack* RightTrackToSet)
 {
-	if (!LeftTrackToSet || !RightTrackToSet) { return; }
+	if (!ensure(LeftTrackToSet) || !ensure(RightTrackToSet)) { return; }
 	LeftTrack = LeftTrackToSet;
 	RightTrack = RightTrackToSet;
 }
@@ -25,7 +25,7 @@ void UTankMovementComponent::RequestDirectMove(const FVector & MoveVelocity, boo
 
 void UTankMovementComponent::IntendMoveForward(float Throw)
 {
-	if (!LeftTrack || !RightTrack) { return; }
+	if (!ensure(LeftTrack) || !ensure(RightTrack)) { return; }
 	auto TankRoot = GetOwner();
 	RightTrack->SetThrottle(Throw);
 	LeftTrack->SetThrottle(Throw);
@@ -34,7 +34,7 @@ void UTankMovementComponent::IntendMoveForward(float Throw)
 
 void UTankMovementComponent::IntendTurnRight(float Throw)
 {
-	if (!LeftTrack || !RightTrack) { return; }
+	if (!ensure(LeftTrack) || !ensure(RightTrack)) { return; }
 	auto TankRoot = GetOwner();
 	RightTrack->SetThrottle(-Throw);
 	LeftTrack->SetThrottle(Throw);

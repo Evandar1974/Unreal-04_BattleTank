@@ -19,14 +19,14 @@ UTankAimingComponent::UTankAimingComponent()
 }
 void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
 {
-	if (!BarrelToSet || !TurretToSet) { return; }
+	if (!ensure(BarrelToSet && TurretToSet)) { return; }
 	Barrel = BarrelToSet;
 	Turret = TurretToSet;
 }
 
 void UTankAimingComponent::AimAt(FVector HitLocation, float LaunchSpeed)
 {
-	if (!Barrel || !Turret) { return; }
+	if (!ensure(Barrel && Turret)) { return; }
 	FVector OutLaunchVelocity;
 	FVector StartLocation = Barrel->GetSocketLocation(FName("Projectile"));
 	bool bHaveAimSolution = UGameplayStatics::SuggestProjectileVelocity
@@ -71,6 +71,7 @@ void UTankAimingComponent::RotateTurrretTowards(FVector AimDirection)
 }
 void UTankAimingComponent::Fire()
 {
+	if (!ensure(Barrel)) { return; }
 	bool IsReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
 	if (Barrel && IsReloaded)
 	{

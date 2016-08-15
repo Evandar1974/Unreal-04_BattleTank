@@ -16,7 +16,7 @@ void ATankAIController::Tick(float DeltaTime)
 
 	auto PlayerTank = (GetWorld()->GetFirstPlayerController()->GetPawn());
 	auto ControlledTank = (Cast<ATank>(GetPawn()));
-	if (PlayerTank)
+	if (ensure(PlayerTank))
 	{
 		MoveToActor(PlayerTank, AcceptanceRadius );//TODO check radius is in blueprint
 		ControlledTank->AimAt(PlayerTank->GetActorLocation());

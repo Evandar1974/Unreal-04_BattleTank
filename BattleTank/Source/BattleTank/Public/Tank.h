@@ -8,7 +8,6 @@
 
 //forward declarations
 class UTankAimingComponent;
-class UTankMovementComponent;
 
 
 UCLASS()
@@ -27,14 +26,11 @@ protected:
 	UPROPERTY(BlueprintReadOnly)
 	UTankAimingComponent* TankAimingComponent = nullptr;
 
-	UPROPERTY(BlueprintReadOnly)
-	UTankMovementComponent* TankMovementComponent = nullptr;
-
 	UPROPERTY(EditDefaultsOnly, Category = Firing)
 		float LaunchSpeed = 5000;
 
 private:
 	// Sets default values for this pawn's properties
 	ATank();
-	
+	virtual void BeginPlay() override;
 };
