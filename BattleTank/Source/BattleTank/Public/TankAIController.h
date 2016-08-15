@@ -7,7 +7,8 @@
 #include "TankAIController.generated.h"
 
 // Forward Declarations
-class ATank;
+class UTankAimingComponent;
+
 
 /**
  * 
@@ -16,7 +17,9 @@ UCLASS()
 class BATTLETANK_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
-	
+protected:
+	UPROPERTY(BlueprintReadOnly)
+		UTankAimingComponent* TankAimingComponent = nullptr;
 	
 private:
 
