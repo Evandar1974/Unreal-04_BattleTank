@@ -43,7 +43,7 @@ protected:
 private:
 
 	UTankAimingComponent();
-
+	FVector AimDirection;
 	virtual void BeginPlay() override;
 
 	virtual void TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction) override;
@@ -52,6 +52,8 @@ private:
 	UTankTurret* Turret = nullptr;
 	void ElevateBarrelTowards(FVector AimDirection);
 	void RotateTurrretTowards(FVector AimDirection);
+
+	bool IsBarrelMoving();
 
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 		TSubclassOf<AProjectile> ProjectileBlueprint;
