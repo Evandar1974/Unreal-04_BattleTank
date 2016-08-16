@@ -3,6 +3,17 @@
 #include "BattleTank.h"
 #include "TankTrack.h"
 
+UTankTrack::UTankTrack()
+{
+	PrimaryComponentTick.bCanEverTick = true; // TODO should this tick????
+}
+void UTankTrack::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
+{
+
+	// calculate slippage speed
+	// work out the required acceleration from this frame to correct
+	// calculate and apply a sideways force
+}
 void UTankTrack::SetThrottle(float Throttle)
 {
 
