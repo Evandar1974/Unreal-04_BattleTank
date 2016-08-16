@@ -17,6 +17,21 @@ UTankAimingComponent::UTankAimingComponent()
 
 	// ...
 }
+void UTankAimingComponent::BeginPlay()
+{
+	//so first fire is after initial reload
+	LastFireTime = FPlatformTime::Seconds();
+}
+void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
+{
+	UE_LOG(LogTemp, Warning, TEXT("Ticking"))
+		if ((FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds)
+		{
+			FiringStatus = EFiringStatus::Reloading;
+		}
+}
+
+
 void UTankAimingComponent::Initialise(UTankBarrel* BarrelToSet, UTankTurret* TurretToSet)
 {
 	if (!ensure(BarrelToSet && TurretToSet)) { return; }
@@ -73,7 +88,7 @@ void UTankAimingComponent::Fire()
 {
 	if (!ensure(Barrel)) { return; }
 	bool IsReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
-	if (Barrel && IsReloaded)
+	if (FiringStatus != EFiringStatus::Reloading)
 	{
 		//spawn a projectile at the socket location
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
