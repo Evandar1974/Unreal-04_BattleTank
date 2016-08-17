@@ -24,7 +24,11 @@ void ATankAIController::Tick(float DeltaTime)
 	{
 		MoveToActor(PlayerTank, AcceptanceRadius );//TODO check radius is in blueprint
 		TankAimingComponent->AimAt(PlayerTank->GetActorLocation());
-		TankAimingComponent->Fire(); // TODO dont fire every frame
+		//if aiming or locked
+		if (TankAimingComponent->GetFiringState() == EFiringStatus::Locked)
+		{
+			TankAimingComponent->Fire(); // TODO dont fire every frame
+		}
 	}
 
 

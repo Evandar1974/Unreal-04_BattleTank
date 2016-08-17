@@ -21,12 +21,10 @@ void ATankPlayerController::Tick(float DeltaTime )
 void ATankPlayerController::AimTowardsCrosshair()
 {
 	if (!GetPawn()) { return; } // eg if not possesing a pawn
-	if (!ensure(TankAimingComponent)) 
-	{ 
-		return; 
-	}
+	if (!ensure(TankAimingComponent)) {	return;	}
 	FVector HitLocation; // out parameter
-	if (ensure(GetSightRayHitLocation(HitLocation)))// has side effect is going to line trace
+	bool bGotHitLocation = GetSightRayHitLocation(HitLocation);
+	if (bGotHitLocation)// has side effect is going to line trace
 	{
 		TankAimingComponent->AimAt(HitLocation);
 	}
@@ -44,8 +42,8 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector& HitLocation) const
 		if (GetLookDirection(ScreenLocation, LookDirection))
 		{
 			// line trace along that direction and see what we hit upto maximum range
-			GetLookVectorHitLocation(LookDirection, HitLocation);
-			return true;
+			return GetLookVectorHitLocation(LookDirection, HitLocation);
+			
 		}
 		else
 		{
