@@ -7,6 +7,8 @@
 #include "TankAimingComponent.h"
 
 
+
+
 // Sets default values for this component's properties
 UTankAimingComponent::UTankAimingComponent()
 {
@@ -32,9 +34,21 @@ EFiringStatus UTankAimingComponent::GetFiringState()
 {
 	return FiringStatus;
 }
+
+int UTankAimingComponent::GetRoundsLeft() const
+{
+	return RoundsLeft;
+}
+
+
+
 void UTankAimingComponent::TickComponent(float DeltaTime, enum ELevelTick TickType, FActorComponentTickFunction *ThisTickFunction)
 {
-		if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
+		if(RoundsLeft <= 0)
+		{
+			FiringStatus = EFiringStatus::Empty;
+		}
+		else if ((FPlatformTime::Seconds() - LastFireTime) < ReloadTimeInSeconds)
 		{
 			FiringStatus = EFiringStatus::Reloading;
 		}
@@ -79,7 +93,6 @@ void UTankAimingComponent::AimAt(FVector HitLocation)
 	{
 		return;
 	}
-	// if no solution found do nothing
 }
 void UTankAimingComponent::ElevateBarrelTowards(FVector AimDirection)
 {
@@ -109,7 +122,7 @@ void UTankAimingComponent::Fire()
 {
 	if (!ensure(Barrel)) { return; }
 	bool IsReloaded = (FPlatformTime::Seconds() - LastFireTime) > ReloadTimeInSeconds;
-	if (FiringStatus != EFiringStatus::Reloading)
+	if (FiringStatus == EFiringStatus::Locked || FiringStatus == EFiringStatus::Aiming)
 	{
 		//spawn a projectile at the socket location
 		auto Projectile = GetWorld()->SpawnActor<AProjectile>(
@@ -119,6 +132,8 @@ void UTankAimingComponent::Fire()
 			);
 		Projectile->LaunchProjectile(LaunchSpeed);
 		LastFireTime = FPlatformTime::Seconds();
+
+		RoundsLeft--;
 	}
 
 
