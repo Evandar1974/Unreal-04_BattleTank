@@ -25,5 +25,12 @@ public:
 	void LaunchProjectile( float speed);
 private:
 	UProjectileMovementComponent* ProjectileMovement;
+
+	UPROPERTY(VisibleAnywhere)
+		UStaticMeshComponent* CollisionMesh = nullptr;
+
+	UPROPERTY(VisibleAnywhere)
+		UParticleSystemComponent* LaunchBlast = nullptr;
+
 	
 };
