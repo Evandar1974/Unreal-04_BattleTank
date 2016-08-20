@@ -18,17 +18,19 @@ class BATTLETANK_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
 protected:
-	UPROPERTY(BlueprintReadOnly)
-		UTankAimingComponent* TankAimingComponent = nullptr;
 	
+	// how close can the ai tank get
+	UPROPERTY(EditDefaultsOnly, Category = "Setup")
+		float AcceptanceRadius = 8000;
 private:
 
 	// Called every frame
 	virtual void Tick(float DeltaSeconds) override;
-	void BeginPlay() override;
+	virtual void BeginPlay() override;
+	virtual void SetPawn(APawn* InPawn) override;
 
-	// how close can the ai tank get
-	UPROPERTY(EditAnywhere)
-	float AcceptanceRadius = 80000;
+	UFUNCTION()
+		void OnPossessedTankDeath();
+	
 	
 };

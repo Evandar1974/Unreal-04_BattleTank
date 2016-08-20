@@ -4,7 +4,7 @@
 #include "BattleTank.h"
 #include "TankAimingComponent.h"
 #include "TankPlayerController.h"
-
+#include "Tank.h"
 void ATankPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
@@ -12,7 +12,22 @@ void ATankPlayerController::BeginPlay()
 	if (!ensure(TankAimingComponent)) { return; }
 	FoundAimingComponent(TankAimingComponent);
 }
+void ATankPlayerController::SetPawn(APawn* InPawn)
+{
+	Super::SetPawn(InPawn);
+	if (InPawn)
+	{
+		auto PossessedTank = Cast<ATank>(InPawn);
+		if (!ensure(PossessedTank)) { return; }
 
+		PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankPlayerController::OnPossessedTankDeath);
+	}
+
+}
+void ATankPlayerController::OnPossessedTankDeath()
+{
+
+}
 void ATankPlayerController::Tick(float DeltaTime )
 {
 	Super::Tick( DeltaTime );

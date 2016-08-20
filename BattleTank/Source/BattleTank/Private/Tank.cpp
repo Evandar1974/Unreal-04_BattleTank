@@ -5,6 +5,11 @@
 
 
 // Sets default values
+
+float ATank::GetHealthPercent() const 
+{
+	return (float)CurrentHealth / (float)StartingHealth;
+}
 ATank::ATank()
 {
 	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
@@ -28,6 +33,8 @@ float ATank::TakeDamage(float DamageAmount, FDamageEvent const & DamageEvent, AC
 		// If the damage depletes our health set our lifespan to zero - which will destroy the actor  
 		if (CurrentHealth <= 0)
 		{
+			UE_LOG(LogTemp, Warning, TEXT("Tank Died"));
+			OnDeath.Broadcast();
 			SetLifeSpan(0.001f);
 		}
 	}

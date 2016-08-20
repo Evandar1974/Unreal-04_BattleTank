@@ -3,33 +3,47 @@
 #include "BattleTank.h"
 #include "TankAimingComponent.h"
 #include "TankAIController.h"
-
+#include "Tank.h"
 
 void ATankAIController::BeginPlay()
 {
 	Super::BeginPlay();
-	TankAimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
+}
+
+void ATankAIController::SetPawn(APawn* InPawn)
+{
+	Super::SetPawn(InPawn);
+	if (InPawn)
+	{
+		auto PossessedTank = Cast<ATank>(InPawn);
+		if (!ensure(PossessedTank)) { return; }
+
+		PossessedTank->OnDeath.AddUniqueDynamic(this, &ATankAIController::OnPossessedTankDeath);
+	}
+
+}
+void ATankAIController::OnPossessedTankDeath()
+{
+
 }
 void ATankAIController::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
 	auto PlayerTank = (GetWorld()->GetFirstPlayerController()->GetPawn());
-	if (!ensure(TankAimingComponent)) 
-	{ 
-		UE_LOG(LogTemp, Warning, TEXT("Aiming component not found"))
-		return; 
-	}
-	if (ensure(PlayerTank))
+	auto ControlledTank = GetPawn();
+	if (!ensure(PlayerTank && ControlledTank)) { return; }
+	// move towards player
+	MoveToActor(PlayerTank, AcceptanceRadius );
+	// Aim towards player
+	auto AimingComponent = ControlledTank->FindComponentByClass<UTankAimingComponent>();
+	AimingComponent->AimAt(PlayerTank->GetActorLocation());
+	//if aiming or locked
+	if (AimingComponent->GetFiringState() == EFiringStatus::Locked)
 	{
-		MoveToActor(PlayerTank, AcceptanceRadius );//TODO check radius is in blueprint
-		TankAimingComponent->AimAt(PlayerTank->GetActorLocation());
-		//if aiming or locked
-		if (TankAimingComponent->GetFiringState() == EFiringStatus::Locked)
-		{
-			TankAimingComponent->Fire(); // TODO dont fire every frame
-		}
+		AimingComponent->Fire(); 
 	}
+	
 
 
 }

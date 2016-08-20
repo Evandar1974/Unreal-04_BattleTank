@@ -19,6 +19,9 @@ public:
 	// Max Force Per Track In newtons!
 	UPROPERTY(EditDefaultsOnly)
 		float TrackMaxDrivingForce = 400000; //  assume 40 tonne tank with 1g 
+	// returns health as a percentage of starting health
+
+	
 private:
 
 	UTankTrack();
