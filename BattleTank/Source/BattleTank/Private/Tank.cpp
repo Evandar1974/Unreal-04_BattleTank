@@ -19,6 +19,7 @@ ATank::ATank()
 void ATank::BeginPlay()
 {
 	Super::BeginPlay();//needed for blueprints to run in begin play
+	CurrentHealth = StartingHealth;
 }
 
 float ATank::TakeDamage(float DamageAmount, FDamageEvent const & DamageEvent, AController * EventInstigator, AActor * DamageCauser)
@@ -30,6 +31,7 @@ float ATank::TakeDamage(float DamageAmount, FDamageEvent const & DamageEvent, AC
 	{
 	
 		CurrentHealth -= DamageToApply;
+		UE_LOG(LogTemp, Warning, TEXT("Current Health %i"), CurrentHealth);
 		// If the damage depletes our health set our lifespan to zero - which will destroy the actor  
 		if (CurrentHealth <= 0)
 		{
